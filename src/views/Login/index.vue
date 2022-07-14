@@ -5,17 +5,18 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 19:45:13
  * @LastEditors: sj
- * @LastEditTime: 2022-07-13 21:30:49
+ * @LastEditTime: 2022-07-14 16:04:53
 -->
 <template>
   <div class="login">
     <!--  头部 -->
-    <van-nav-bar
+    <!-- <van-nav-bar
       title="账号登陆"
       left-arrow
       @click-left="onClickLeft"
       class="title-nav"
-    />
+    /> -->
+    <Header title="账号登陆"></Header>
     <!-- 表单 -->
     <van-form @submit="onSubmit" class="form">
       <van-field
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
 import { login } from '@/api/user'
 export default {
   data() {
@@ -51,9 +53,6 @@ export default {
     }
   },
   methods: {
-    onClickLeft() {
-      this.$router.back()
-    },
     async onSubmit() {
       if (this.username === '' || this.password === '') {
         return this.$toast('用户名和密码不能为空')
@@ -64,10 +63,26 @@ export default {
       if (!/^[a-zA-Z0-9]{5,8}$/.test(this.username)) {
         return this.$toast('用户名格式5-8位的字母和数字')
       }
-
-      const res = await login(this.username, this.password)
-      console.log(res)
+      try {
+        const res = await login(this.username, this.password)
+        console.log(res.data)
+        localStorage.setItem('user', JSON.stringify(res.data.body))
+        this.$toast.success({
+          message: '登陆成功',
+          onClose: () => {
+            this.$router.push({
+              path: '/my'
+            })
+          }
+        })
+      } catch (err) {
+        console.log(err)
+        this.$toast.fail('登陆失败')
+      }
     }
+  },
+  components: {
+    Header
   }
 }
 </script>
