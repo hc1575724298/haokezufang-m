@@ -5,17 +5,17 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 23:16:02
  * @LastEditors: sj
- * @LastEditTime: 2022-07-14 15:26:16
+ * @LastEditTime: 2022-07-16 09:07:38
 
 -->
 <template>
   <div class="mine">
     <!-- 已登陆 -->
     <div class="top-LoginBox" v-if="token">
-      <van-image width="100%" height="100%" :src="bg2Img" class="bg2Img" />
+      <van-image width="100%" height="100%" :src="`http://liufusong.top:8080${userInfo.avatar}`||bg2Img" class="bg2Img" />
       <div class="LoginBox">
         <div class="userImg">
-          <van-image width="100%" height="100%" :src="userImg" />
+          <van-image width="100%" height="100%" :src="`http://liufusong.top:8080${userInfo.avatar}` ||userImg" />
         </div>
         <div class="user-name">{{ userInfo.nickname }}</div>
         <van-button class="LoginBtn" @click="clickOut">退出</van-button>
@@ -42,7 +42,7 @@
 
     <van-grid :border="false" :column-num="3" class="class-list">
       <van-grid-item icon="star-o" text="我的收藏" @click="toFavoritesList" />
-      <van-grid-item icon="wap-home-o" text="我的出租" />
+      <van-grid-item icon="wap-home-o" text="我的出租" @click="toHouseManagement"/>
       <van-grid-item icon="clock-o" text="看房记录" />
       <van-grid-item icon="idcard" text="成为房主" />
       <van-grid-item icon="contact" text="个人资料" />
@@ -71,11 +71,13 @@ export default {
   },
   created() {
     this.getUserInfo()
+    console.log(this.$store)
   },
   methods: {
     async getUserInfo() {
       try {
-        this.token = JSON.parse(localStorage.getItem('user')).token
+        // this.token = JSON.parse(localStorage.getItem('token')).token
+        this.token = this.$store.state.user.token
         const res = await userInfo(this.token)
         console.log(res)
         this.userInfo = res.data.body
@@ -84,7 +86,7 @@ export default {
       }
     },
     clickOut() {
-      localStorage.removeItem('user')
+      this.$store.commit('removeUser')
       this.token = ''
     },
     toLogin() {
@@ -95,9 +97,24 @@ export default {
       }
     },
     toFavoritesList() {
-      this.toLogin()
+      // this.toLogin()
+      if (this.token === '') {
+        return this.$router.push({
+          path: '/login'
+        })
+      }
       this.$router.push({
-        path: 'collect'
+        path: '/collect'
+      })
+    },
+    toHouseManagement() {
+      if (this.token === '') {
+        return this.$router.push({
+          path: '/login'
+        })
+      }
+      this.$router.push({
+        path: '/management'
       })
     }
   }

@@ -5,17 +5,11 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 19:45:13
  * @LastEditors: sj
- * @LastEditTime: 2022-07-14 16:04:53
+ * @LastEditTime: 2022-07-15 15:40:34
 -->
 <template>
   <div class="login">
     <!--  头部 -->
-    <!-- <van-nav-bar
-      title="账号登陆"
-      left-arrow
-      @click-left="onClickLeft"
-      class="title-nav"
-    /> -->
     <Header title="账号登陆"></Header>
     <!-- 表单 -->
     <van-form @submit="onSubmit" class="form">
@@ -66,12 +60,13 @@ export default {
       try {
         const res = await login(this.username, this.password)
         console.log(res.data)
-        localStorage.setItem('user', JSON.stringify(res.data.body))
+        this.$store.commit('getUser', res.data.body)
+        // localStorage.setItem('user', JSON.stringify(res.data.body))
         this.$toast.success({
           message: '登陆成功',
           onClose: () => {
             this.$router.push({
-              path: '/my'
+              path: '/layout/my'
             })
           }
         })

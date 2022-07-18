@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 18:10:27
  * @LastEditors: sj
- * @LastEditTime: 2022-07-14 16:38:18
+ * @LastEditTime: 2022-07-17 16:10:04
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -25,12 +25,12 @@ const routes = [
   },
   {
     path: '/',
+    redirect: '/layout/home'
+  },
+  {
+    path: '/layout',
     component: () => import('@/views/Layout'),
     children: [
-      {
-        path: '',
-        redirect: 'home'
-      },
       {
         path: 'home',
         name: 'home',
@@ -56,6 +56,23 @@ const routes = [
   {
     path: '/collect',
     component: () => import('@/views/Collect')
+  },
+  {
+    path: '/management',
+    component: () => import('@/views/Management')
+  },
+  {
+    path: '/city',
+    component: () => import('@/views/City')
+  },
+  {
+    path: '/morehousemsg',
+    name: 'morehousemsg',
+    component: () => import('@/views/MoreHouseMsg')
+  },
+  {
+    path: '/addhouse',
+    component: () => import('@/views/addHouse')
   }
 ]
 

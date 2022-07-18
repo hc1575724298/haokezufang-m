@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-14 15:19:00
  * @LastEditors: sj
- * @LastEditTime: 2022-07-14 16:53:50
+ * @LastEditTime: 2022-07-16 14:09:07
 -->
 <template>
   <div>
@@ -35,11 +35,11 @@ export default {
     async getFavoritesList() {
       try {
         const res = await favoritesList(
-          JSON.parse(localStorage.getItem('user')).token
+          this.$store.state.user.token
         )
-        console.log(res.data.body)
+        // console.log(res.data.body)
         this.houseInfoList = res.data.body
-        console.log(this.houseInfoList)
+        // console.log(this.houseInfoList)
       } catch (e) {
         console.log(e)
       }

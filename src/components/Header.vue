@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-14 15:53:37
  * @LastEditors: sj
- * @LastEditTime: 2022-07-14 16:13:42
+ * @LastEditTime: 2022-07-16 14:26:40
 -->
 <template>
   <div>
@@ -13,7 +13,7 @@
     <van-nav-bar
       :title="title"
       left-arrow
-      @click-left="$router.back()"
+      @click-left="clickFn"
       class="title-nav"
     />
   </div>
@@ -25,6 +25,12 @@ export default {
     title: {
       type: String,
       default: '标题'
+    }
+  },
+  methods: {
+    clickFn() {
+      this.$router.back()
+      localStorage.removeItem('houseCode')
     }
   }
 

@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 20:35:24
  * @LastEditors: sj
- * @LastEditTime: 2022-07-14 15:02:24
+ * @LastEditTime: 2022-07-17 14:15:50
  */
 import request from '@/utils/request'
 
@@ -35,6 +35,31 @@ export const userInfo = (authorization) => {
 export const favoritesList = (authorization) => {
   return request({
     url: '/user/favorites',
+    headers: {
+      authorization
+    }
+  })
+}
+
+// 查看已发布房源
+/**
+ *
+ * @param {*} authorization 用户token
+ * @returns
+ */
+export const managementList = (authorization) => {
+  return request({
+    url: '/user/houses',
+    headers: {
+      authorization
+    }
+  })
+}
+
+// 查看是否收藏
+export const isFavorite = (authorization, id) => {
+  return request({
+    url: `/user/favorites/${id}`,
     headers: {
       authorization
     }

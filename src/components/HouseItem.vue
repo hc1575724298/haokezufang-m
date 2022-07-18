@@ -5,22 +5,22 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-14 15:13:18
  * @LastEditors: sj
- * @LastEditTime: 2022-07-14 16:51:29
+ * @LastEditTime: 2022-07-16 14:21:55
 -->
 <template>
   <div>
-    <van-cell-group class="houseItem">
+    <van-cell-group class="houseItem" @click="toMoreHouseMsg(houseInfo.houseCode)">
       <van-image
         class="leftImg"
         cover
         width="106"
         height="100%"
-        :src="houseInfo.houseImg"
+        :src="`http://liufusong.top:8080${houseInfo.houseImg}`"
       />
       <van-cell class="houseInfo">
         <div slot="default">
           <h4>{{ houseInfo.title || '' }}</h4>
-          <div class="address">{{ houseInfo.desc }}</div>
+          <div class="address">{{ houseInfo.desc|| '///' }}</div>
           <div
             class="advantage"
             v-for="(item, index) in houseInfo.tags"
@@ -50,7 +50,20 @@ export default {
     }
   },
   created() {
-    console.log(this.houseInfo)
+    // console.log(this.houseInfo)
+  },
+  methods: {
+    toMoreHouseMsg(houseCode) {
+      localStorage.setItem('houseCode', JSON.stringify(houseCode) || '')
+      console.log(localStorage.getItem('houseCode'))
+      this.$router.push({
+        path: '/morehousemsg'
+        // name: 'morehousemsg',
+        // params: {
+        //   houseCode
+        // }
+      })
+    }
   }
 }
 </script>

@@ -5,10 +5,10 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 18:10:27
  * @LastEditors: sj
- * @LastEditTime: 2022-07-13 18:12:31
+ * @LastEditTime: 2022-07-15 11:28:23
 -->
 <template>
-  <div>
+  <div class="app">
     <!-- 一级路由出口 -->
     <router-view></router-view>
   </div>
@@ -20,6 +20,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 
 </style>
