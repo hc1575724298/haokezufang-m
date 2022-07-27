@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-15 19:41:15
  * @LastEditors: sj
- * @LastEditTime: 2022-07-17 17:50:04
+ * @LastEditTime: 2022-07-20 15:21:48
 -->
 <template>
   <div class="MoreHouseMsg">
@@ -56,7 +56,7 @@
       <div class="title">房屋配套</div>
       <ul>
         <li v-for="(item, index) in houseMsg.supporting" :key="index">
-          <van-icon :name="getIcon(item)" />
+          <span :class="getIcon(item)"></span>
           <p>{{item}}</p>
         </li>
       </ul>
@@ -86,14 +86,14 @@
        收藏
      </div>
      <div class="ontel">在线咨询</div>
-     <div class="tel">电话预约</div>
+     <div class="tel"><a href="tel:400-618-4000" style="color: #fff">电话预约</a></div>
    </div>
   </div>
 </template>
 <script>
 import Header from '@/components/Header.vue'
 import { MoreHouseMsg } from '@/api/house'
-import { isFavorite } from '@/api/user'
+import { isFavorite, addFavorite, delFavorite } from '@/api/user'
 import { getIcon } from '@/utils/myutils'
 export default {
   data() {
@@ -134,15 +134,28 @@ export default {
       }
     },
     getIcon(val) {
+      console.log(val)
       return getIcon(val)
     },
-    shoucangFn() {
+    async shoucangFn() {
       if (this.isFavorite) {
-        this.$toast.success('取消收藏')
-        this.isFavorite = false
+        try {
+          const { data } = await delFavorite(JSON.parse(localStorage.getItem('houseCode')))
+          console.log(data)
+          this.$toast.success('取消收藏')
+          this.isFavorite = false
+        } catch (error) {
+          this.$toast.fail('取消收藏失败')
+        }
       } else {
-        this.$toast.success('收藏成功')
-        this.isFavorite = true
+        try {
+          const { data } = await addFavorite(JSON.parse(localStorage.getItem('houseCode')))
+          console.log(data)
+          this.$toast.success('收藏成功')
+          this.isFavorite = true
+        } catch (error) {
+          this.$toast.success('收藏失败')
+        }
       }
     }
   },

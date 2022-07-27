@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-15 00:15:47
  * @LastEditors: sj
- * @LastEditTime: 2022-07-17 15:27:27
+ * @LastEditTime: 2022-07-20 13:30:39
  */
 import request from '@/utils/request'
 
@@ -40,6 +40,28 @@ export const getCityInfo = (name) => {
 export const getCityHouseInfo = (id) => {
   return request({
     url: '/area/map',
+    params: {
+      id
+    }
+  })
+}
+
+// /area/community
+export const searchApartment = (name, id) => {
+  return request({
+    url: '/area/community',
+    params: {
+      name,
+      id
+    }
+  })
+}
+
+//  /area获取子级城市列表
+
+export const getSmallCity = (id) => {
+  return request({
+    url: '/area',
     params: {
       id
     }

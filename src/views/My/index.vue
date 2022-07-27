@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 23:16:02
  * @LastEditors: sj
- * @LastEditTime: 2022-07-16 09:07:38
+ * @LastEditTime: 2022-07-20 14:40:26
 
 -->
 <template>
@@ -88,6 +88,7 @@ export default {
     clickOut() {
       this.$store.commit('removeUser')
       this.token = ''
+      this.$store.commit('removeCity')
     },
     toLogin() {
       if (this.token === '') {

@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-14 15:53:37
  * @LastEditors: sj
- * @LastEditTime: 2022-07-16 14:26:40
+ * @LastEditTime: 2022-07-20 15:35:07
 -->
 <template>
   <div>
@@ -29,7 +29,12 @@ export default {
   },
   methods: {
     clickFn() {
-      this.$router.back()
+      if (this.title === '发布房源') {
+        this.$router.push('/layout/home')
+      } else {
+        this.$router.back()
+      }
+
       localStorage.removeItem('houseCode')
     }
   }

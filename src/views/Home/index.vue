@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 22:01:47
  * @LastEditors: sj
- * @LastEditTime: 2022-07-17 16:11:56
+ * @LastEditTime: 2022-07-20 14:47:59
 -->
 <template>
   <div class="home">
@@ -30,7 +30,7 @@
             class="choose-adress"
             @click="toCity"
             ref="cityName"
-            >{{ $route.query.nameCity || '北京' }}</span
+            >{{ $store.state.cityInfo.label || '北京' }}</span
           >
         </van-search>
         <van-icon name="map-marked" class="search-right" />
@@ -114,7 +114,8 @@ export default {
     },
     async getGroups() {
       try {
-        const res = await houseGroups('AREA|88cff55c-aaa4-e2e0')
+        // const res = await houseGroups('AREA|88cff55c-aaa4-e2e0')
+        const res = await houseGroups(this.$store.state.cityInfo.value)
         console.log(res.data.body)
         this.groups = res.data.body
       } catch (e) {

@@ -5,7 +5,7 @@
  * @email: 1373842098@qq.com
  * @Date: 2022-07-13 18:10:27
  * @LastEditors: sj
- * @LastEditTime: 2022-07-17 16:10:04
+ * @LastEditTime: 2022-07-18 18:13:00
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -73,6 +73,10 @@ const routes = [
   {
     path: '/addhouse',
     component: () => import('@/views/addHouse')
+  },
+  {
+    path: '/apartmentname',
+    component: () => import('@/views/addHouse/component/apartmentname')
   }
 ]
 
